@@ -83,6 +83,17 @@
 </head>
 <body>
 
+<script>
+const password = "1234";
+
+const input = prompt("パスワードを入力してください");
+
+if(input !== password){
+  document.documentElement.innerHTML =
+  "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif;'>Access denied</h1>";
+}
+</script>
+
 <div class="container" id="container">
 
 <!-- 背景画像:A3サイズ（横1587px, 縦1123px） -->
