@@ -84,6 +84,30 @@
 <body>
 
 <script>
+
+function autoScale(){
+
+  const container = document.getElementById("container");
+
+  const pageWidth = 3508;
+  const pageHeight = 4961;
+
+  const scaleX = window.innerWidth / pageWidth;
+  const scaleY = window.innerHeight / pageHeight;
+
+  const scale = Math.min(scaleX, scaleY);
+
+  container.style.transform = "scale(" + scale + ")";
+  container.style.transformOrigin = "top left";
+
+}
+
+window.addEventListener("load", autoScale);
+window.addEventListener("resize", autoScale);
+
+</script>
+  
+<script>
 const password = "1234";
 
 const input = prompt("パスワードを入力してください");
