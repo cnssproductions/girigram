@@ -231,6 +231,28 @@ function exportText(){
 const f1 = document.getElementById("field1").value;
 const f2 = document.getElementById("field2").value;
 const f3 = document.getElementById("field3").value;
+const f4 = document.getElementById("field4").value;
+const f5 = document.getElementById("field5").value;
+const f6 = document.getElementById("field6").value;
+const f7 = document.getElementById("field7").value;
+const f8 = document.getElementById("field8").value;
+const f9 = document.getElementById("field9").value;
+const f10 = document.getElementById("field10").value;
+const f11 = document.getElementById("field11").value;
+const f12 = document.getElementById("field12").value;
+const f13 = document.getElementById("field13").value;
+const f14 = document.getElementById("field14").value;
+const f15 = document.getElementById("field15").value;
+const f16 = document.getElementById("field16").value;
+const f17 = document.getElementById("field17").value;
+const f18 = document.getElementById("field18").value;
+const f19 = document.getElementById("field19").value;
+const f20 = document.getElementById("field20").value;
+const f21 = document.getElementById("field21").value;
+const f22 = document.getElementById("field22").value;
+const f23 = document.getElementById("field23").value;
+const f24 = document.getElementById("field24").value;
+const f25 = document.getElementById("field25").value;
 
 const text =
 "■タイトル\n" +
@@ -246,11 +268,9 @@ const blob = new Blob([text], {type:"text/plain"});
 
 const a = document.createElement("a");
 a.href = URL.createObjectURL(blob);
-a.download = "output.txt";
-a.click();
-
 const name = document.getElementById("filename").value || "export";
 a.download = name + ".txt";
+a.click();
 
 }
 
