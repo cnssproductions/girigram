@@ -108,6 +108,7 @@ if(input !== password){
   <button id="importBtn">読み込み</button>
   <input type="text" id="filename" placeholder="名称未設定" />
   <button id="exportBtn">保存</button>
+  <button onclick="exportText()">テキスト出力</button>
 </div>
 
 <script>
@@ -224,6 +225,31 @@ if(input !== password){
     a.click();
     URL.revokeObjectURL(a.href);
   });
+
+function exportText(){
+
+const f1 = document.getElementById("field1").value;
+const f2 = document.getElementById("field2").value;
+const f3 = document.getElementById("field3").value;
+
+const text =
+"■タイトル\n" +
+f1 + "\n\n" +
+
+"■概要\n" +
+f2 + "\n\n" +
+
+"■メモ\n" +
+f3 + "\n";
+
+const blob = new Blob([text], {type:"text/plain"});
+
+const a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "output.txt";
+a.click();
+
+}
 
 </script>
 
