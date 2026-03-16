@@ -244,8 +244,10 @@ f3 + "\n";
 
 const blob = new Blob([text], {type:"text/plain"});
 
+const a = document.createElement("a");
 const name = document.getElementById("filename").value || "export";
 a.download = name + ".txt";
+a.click();
 
 }
 
