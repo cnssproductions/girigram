@@ -103,12 +103,12 @@ if(input !== password){
 </div>
 
 <div class="controls">
-  <button id="resetBtn">リセット</button>
+  <button id="resetBtn">消去</button>
   <input type="file" id="importFile" style="display:none" accept=".grg" />
   <button id="importBtn">読み込み</button>
   <input type="text" id="filename" placeholder="名称未設定" />
   <button id="exportBtn">保存</button>
-  <button onclick="exportText()">テキスト出力</button>
+  <button onclick="exportText()">書き出し</button>
 </div>
 
 <script>
@@ -168,7 +168,7 @@ if(input !== password){
   createFormFields();
 
   document.getElementById('resetBtn').addEventListener('click', () => {
-    if (!confirm('すべての入力をリセットしますか？')) return;
+    if (!confirm('すべての入力を消去しますか？')) return;
 
     fieldsConfig.forEach(field => {
     const textarea = document.getElementById(field.id);
@@ -176,7 +176,7 @@ if(input !== password){
     localStorage.removeItem(field.id);
   });
 
-    alert('リセットしました');
+    alert('消去しました');
 　});
 
   document.getElementById('importBtn').addEventListener('click', () => {
@@ -260,29 +260,29 @@ const text =
 "【テーマ】\n" +
 f12 + "\n\n" +
 "【ログライン】\n" +
-f11 + "が" + f12 + "を通して" + f13 + "になっていく物語。\n\n" +
+f11 + "が、" + f12 + "によって、" + f13 + "になる。\n\n" +
 "【キャラクター】\n\n\n" +
 "【トリートメント】\n" +
 "［プロローグ］\n" +
 f18 + "\n\n" +
-"［チャプター１］" + f14 + "\n" +
+"［第一章：" + f14 + "］\n" +
 f19 + "\n" +
-"▶きっかけ：" + f1 + "\n\n" +
-"［チャプター２］" + f15 + "\n" +
+"▶きっかけ：" + f1 + "。\n\n" +
+"［第二章：" + f15 + "］\n" +
 f20 + "\n" +
 f21 + "\n" +
-"▶出会い：" + f3 + "が" + f4 + "\n" +
-"▶わかったこと：" + f5 + "\n\n" +
-"［チャプター３］" + f16 + "\n" +
+"▶出会い：" + f3 + "が、" + f4 + "。\n" +
+"▶わかったこと：" + f5 + "。\n\n" +
+"［第三章：" + f16 + "］\n" +
 f22 + "\n" +
 f23 + "\n" +
-"▶逆転劇：" + f9 + "が" + f10 + "\n\n" +
-"［チャプター４］" + f17 + "\n" +
+"▶逆転劇：" + f9 + "が、" + f10 + "。\n\n" +
+"［第四章：" + f17 + "］\n" +
 f24 + "\n" +
-"▶クライマックス：" + f7 + "が" + f8 + "\n\n" +
+"▶クライマックス：" + f7 + "が、" + f8 + "。\n\n" +
 "［エピローグ］\n" +
 f25 + "\n" +
-"▶結末：\n" + f6 + f2 + "\n\n" +
+"▶結末：" + f6 + f2 + "\n\n" +
 "（了）\n";
 
 const blob = new Blob([text], {type:"text/plain"});
