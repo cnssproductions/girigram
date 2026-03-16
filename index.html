@@ -228,6 +228,7 @@ if(input !== password){
 
 function exportText(){
 
+const f0 = document.getElementById('filename').value;
 const f1 = document.getElementById("field1").value;
 const f2 = document.getElementById("field2").value;
 const f3 = document.getElementById("field3").value;
@@ -256,7 +257,7 @@ const f25 = document.getElementById("field25").value;
 
 const text =
 "■タイトル\n" +
-f1 + "\n\n" +
+f0 + "\n\n" +
 
 "■概要\n" +
 f2 + "\n\n" +
@@ -268,6 +269,7 @@ const blob = new Blob([text], {type:"text/plain"});
 
 const a = document.createElement("a");
 a.href = URL.createObjectURL(blob);
+
 const name = document.getElementById("filename").value || "export";
 a.download = name + ".txt";
 a.click();
