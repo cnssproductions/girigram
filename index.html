@@ -291,7 +291,7 @@ const blob = new Blob([text], {type:"text/plain"});
 const a = document.createElement("a");
 a.href = URL.createObjectURL(blob);
 
-const name = document.getElementById("filename").value || "export";
+const name = document.getElementById("filename").value || "名称未設定";
 a.download = name + ".txt";
 a.click();
 
