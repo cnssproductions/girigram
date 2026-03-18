@@ -300,10 +300,9 @@ ${f25}
 // ダウンロード処理
 const blob = new Blob([text], {type:"text/plain"});
 const a = document.createElement("a");
-const fileName = get("filename") || "名称未設定";
   
 a.href = URL.createObjectURL(blob);
-a.download = "output.txt";
+a.download = "名称未設定.txt";
 a.click();
 
 }
