@@ -297,13 +297,12 @@ ${f25}
 　（了）
 `;
 
-// ダウンロード処理
 const blob = new Blob([text], {type:"text/plain"});
+const name = document.getElementById("filename").value || "名称未設定";
+a.download = name + ".txt";
 const a = document.createElement("a");
-if (!filename) filename = '名称未設定.grg';
-
 a.href = URL.createObjectURL(blob);
-a.download = filename;
+a.download = "scenario.txt";
 a.click();
 
 }
