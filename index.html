@@ -298,11 +298,11 @@ ${f25}
 `;
 
 const blob = new Blob([text], {type:"text/plain"});
-const name = document.getElementById("filename").value || "名称未設定";
-a.download = name + ".txt";
 const a = document.createElement("a");
+
+const fileName = get("filename") || "名称未設定";
 a.href = URL.createObjectURL(blob);
-a.download = "scenario.txt";
+a.download = fileName + ".txt";
 a.click();
 
 }
