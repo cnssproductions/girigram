@@ -300,9 +300,10 @@ ${f25}
 // ダウンロード処理
 const blob = new Blob([text], {type:"text/plain"});
 const a = document.createElement("a");
-  
+if (!filename) filename = '名称未設定.grg';
+
 a.href = URL.createObjectURL(blob);
-a.download = "名称未設定.txt";
+a.download = filename;
 a.click();
 
 }
