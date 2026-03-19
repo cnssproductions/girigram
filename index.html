@@ -150,7 +150,7 @@ if(input !== password){
     { id: 'field34', top: 755, left: 992, width: 140, height: 144, rows: 1, placeholder: '\n\n－変化－\n悟りを得る' },
     { id: 'field35', top: 900, left: 992, width: 140, height: 144, rows: 1, placeholder: '\n\n－離脱－\n脱出と救出' },
     { id: 'field36', top: 610, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n\n－臨戦－\nスタンドアップ' },
-    { id: 'field37', top: 755, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n\nn－難題－\n二律背反の問い' },
+    { id: 'field37', top: 755, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n\n－難題－\n二律背反の問い' },
     { id: 'field38', top: 900, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n\n－選択－\n悟りからの決断' },
     { id: 'field39', top: 610, left: 1357, width: 140, height: 144, rows: 1, placeholder: '\n\n－終局－\n改変された世界' },
     { id: 'field40', top: 755, left: 1357, width: 140, height: 144, rows: 1, placeholder: '\n\n（安定）\n新たな定常状態' },
@@ -271,6 +271,22 @@ const f22 = document.getElementById("field22").value;
 const f23 = document.getElementById("field23").value;
 const f24 = document.getElementById("field24").value;
 const f25 = document.getElementById("field25").value;
+const f26 = document.getElementById("field26").value;
+const f27 = document.getElementById("field27").value;
+const f28 = document.getElementById("field28").value;
+const f29 = document.getElementById("field29").value;
+const f30 = document.getElementById("field30").value;
+const f31 = document.getElementById("field31").value;
+const f32 = document.getElementById("field32").value;
+const f33 = document.getElementById("field33").value;
+const f34 = document.getElementById("field34").value;
+const f35 = document.getElementById("field35").value;
+const f36 = document.getElementById("field36").value;
+const f37 = document.getElementById("field37").value;
+const f38 = document.getElementById("field38").value;
+const f39 = document.getElementById("field39").value;
+const f40 = document.getElementById("field40").value;
+const f41 = document.getElementById("field41").value;
 
 const text = `
 タイトル『${f0}』
@@ -286,30 +302,30 @@ ${f11}が、${f12}によって、${f13}。
 
 　【あらすじ】
 ［序章：${f11}］（全体×0.136）
-${f18}
+${f18}${f19}${f20}
 
 ［一章：${f14}］（全体×0.136）
-${f19}
+${f21}${f22}${f23}
 ▶きっかけ：${f1}。
 
 ［二章：${f15}］（全体×0.273）
-${f20}
-${f21}
+${f24}${f25}${f26}
+${f27}${f28}${f29}
 ▶出会い：${f3}が、${f4}。
 ▶わかったこと：${f5}。
 
 ［三章：${f16}］（全体×0.273）
-${f22}
-${f23}
+${f30}${f31}${f32}
+${f33}${f34}${f35}
 ▶危機を脱する：${f9}が、${f10}。
 
 ［四章：${f17}］（全体×0.136）
-${f24}
+${f36}${f37}${f38}
 ▶クライマックス：${f7}が、${f8}。
 ▶フィナーレ：${f6}が、${f2}。
 
 ［終章：${f13}］（全体×0.045）
-${f25}
+${f39}${f40}${f41}
 
 　（了）
 `;
