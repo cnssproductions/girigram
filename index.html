@@ -152,9 +152,7 @@ if(input !== password){
     { id: 'field36', top: 610, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n－臨戦－\nスタンドアップ' },
     { id: 'field37', top: 755, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n－難題－\n二律背反の問い' },
     { id: 'field38', top: 900, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n－選択－\n悟りからの決断' },
-    { id: 'field39', top: 610, left: 1357, width: 140, height: 144, rows: 1, placeholder: '\n－終局－\n改変された世界' },
-    { id: 'field40', top: 755, left: 1357, width: 140, height: 144, rows: 1, placeholder: '\n（安定）\n新たな定常状態' },
-    { id: 'field41', top: 900, left: 1357, width: 140, height: 144, rows: 1, placeholder: '\n（後談）\nエピローグ' },
+    { id: 'field39', top: 610, left: 1357, width: 140, height: 430, rows: 1, placeholder: '\n－終局－\n改変された世界\n（安定）\n\n\n\n\n新たな定常状態\n\n\n\n\n（後談）\nエピローグ' },
 
   ];
   
@@ -285,8 +283,6 @@ const f36 = document.getElementById("field36").value;
 const f37 = document.getElementById("field37").value;
 const f38 = document.getElementById("field38").value;
 const f39 = document.getElementById("field39").value;
-const f40 = document.getElementById("field40").value;
-const f41 = document.getElementById("field41").value;
 
 const text = `
 タイトル『${f0}』
@@ -325,7 +321,7 @@ ${f36}${f37}${f38}
 ▶フィナーレ：${f6}が、${f2}。
 
 ［終章：${f13}］（全体×0.045）
-${f39}${f40}${f41}
+${f39}
 
 　（了）
 `;
