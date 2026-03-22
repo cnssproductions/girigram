@@ -170,6 +170,17 @@ textarea{
 </head>
 <body>
 
+<script>
+const password = "儀理図";
+
+const input = prompt("パスワードを入力してください");
+
+if(input !== password){
+  document.documentElement.innerHTML =
+  "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif;'>Access denied</h1>";
+}
+</script>
+  
 <div class="container">
   <img src="girigram.png" class="background-image">
   <div id="formContainer" class="form-container"></div>
