@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta charset="UTF-8">
 <title>girigram</title>
 
-<!-- giri-gram: 儀理図 -->
-
 <style>
-  body {
-    font-family: "Hiragino Mincho ProN", sans-serif;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-  }
-  .container {
-    position: relative;
-    width: 1587px;
-    height: 1123px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    background: #eee;
-  }
-  .background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-  .form-container {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-  }
+body{margin:0;font-family:sans-serif;}
+
+textarea{
+  resize:none !important;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+.container{
+  position:relative;
+  width:1587px;
+  height:1123px;
+  margin:20px auto;
+  border:2px solid #000;
+}
+
+.background-image{
+  width:100%;
+  height:100%;
+}
+
+.form-container{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+}
   .form-field {
     position: absolute;
     font-size: 18px;
@@ -53,67 +49,156 @@
     display: none; /* Chrome, Safari, Opera */
   }
 
-  .controls {
-    width: 1123px;
-    margin: 0 auto 30px auto;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  .controls input[type="text"] {
-    flex: 1;
-    padding: 5px 8px;
-    font-size: 18px;
-    text-align: center;
-  }
-  .controls button {
-    padding: 5px 12px;
-    font-size: 14px;
-  }
-  .controls ::placeholder {
-    color: lightsteelblue;
-    opacity: 1;
-    text-align: center;
-  }
+.controls{
+  width:1123px;
+  margin:10px auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+ }
   textarea::placeholder {
     color: lightsteelblue;
     opacity: 1;
-  }
+ }
+
+#filename{
+  flex:none;
+  width:480px;
+  padding:4px 8px;
+  font-size:16px;
+  text-align:center;
+}
+
+.bottom-controls{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:10px 0;
+  margin-bottom: 100px
+}
+
+.card-lane{
+  position:relative;
+  width:1587px;
+  height:1150px;
+  margin:auto;
+}
+
+.card-group{
+  position:absolute;
+  border:2px solid #000;
+  padding:6px;
+  background:#fafafa;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.clone-box{
+  width:100%;
+  height:50px;
+  margin-bottom:6px;
+  text-align:center;
+}
+
+.fixed-header {
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  min-height:70px;
+  justify-content:center;
+}
+
+.card-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.card{
+  width:120px;
+  height:160px;
+  border:1px solid #000;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border:2px solid #000;
+}
+
+.card-controls{
+  display:flex;
+  gap:0px;
+}
+
+.drag-handle{
+  background:#ccc;
+  padding:2px 6px;
+  cursor:grab;
+}
+
+:root{
+  --control-height: 18px;
+}
+
+.drag-handle,
+.delete-btn{
+  height: var(--control-height);
+}
+
+#editorModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+#editorTextarea{
+  width:515px;
+  height:728px;
+  font-size:18px;
+}
 </style>
 </head>
 <body>
-  
-<script>
-const password = "'";
 
-const input = prompt("パスワードを入力してください");
-
-if(input !== password){
-  document.documentElement.innerHTML =
-  "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif;'>Access denied</h1>";
-}
-</script>
-
-<div class="container" id="container">
-
-<!-- 背景画像:A3サイズ（横1587px, 縦1123px） -->
-
-  <img src="girigram.png" alt="背景画像" class="background-image" />
-  <div class="form-container" id="formContainer"></div>
+<div class="container">
+  <img src="girigram.png" class="background-image">
+  <div id="formContainer" class="form-container"></div>
 </div>
 
 <div class="controls">
   <button id="resetBtn">消去</button>
-  <input type="file" id="importFile" style="display:none" accept=".grg" />
+  <input type="file" id="importFile" hidden>
   <button id="importBtn">読み込み</button>
-  <input type="text" id="filename" placeholder="名称未設定" />
+  <input id="filename" placeholder="名称未設定">
+
   <button id="exportBtn">保存</button>
-  <button onclick="exportText()">書き出し</button>
+  <button onclick="exportText()">シノプシスを作成</button>
+</div>
+
+<div id="cardLane" class="card-lane"></div>
+
+<div class="bottom-controls">
+  <button onclick="exportCards()">トリートメントを作成</button>
+  <button onclick="addCard()">新規カードの追加</button>
+</div>
+
+<div id="editorModal">
+  <textarea id="editorTextarea"></textarea>
 </div>
 
 <script>
 
-  const fieldsConfig = [
+const fieldsConfig = [
     { id: 'field1', top: 77, left: 87, width: 638, height: 24, rows: 1, placeholder: '強制される課題／外的動機（非定常化）' },
     { id: 'field2', top: 77, left: 851, width: 638, height: 24, rows: 1, placeholder: '課題の終了／外的変化（定常化）' },
     { id: 'field3', top: 125, left: 87, width: 638, height: 24, rows: 1, placeholder: '差異から生じる摩擦／外的対立' },
@@ -153,193 +238,467 @@ if(input !== password){
     { id: 'field37', top: 755, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n－難題－\n二律背反の問い' },
     { id: 'field38', top: 900, left: 1175, width: 140, height: 144, rows: 1, placeholder: '\n－選択－\n悟りからの決断' },
     { id: 'field39', top: 610, left: 1357, width: 140, height: 430, rows: 1, placeholder: '\n－終局－\n改変された世界\n\n（安定）\n新たな定常状態\n\n\（後談）\nエピローグ' },
+];
 
-  ];
-  
-  const formContainer = document.getElementById('formContainer');
+const cardGroupsConfig = [
+  {id:"g18", source:"field18", top:10, left:0, width:252, height:268, cardCount:2},
+  {id:"g19", source:"field19", top:10, left:264, width:252, height:268, cardCount:2},
+  {id:"g20", source:"field20", top:10, left:529, width:252, height:268, cardCount:2},
+  {id:"g21", source:"field21", top:10, left:793, width:252, height:268, cardCount:2},
+  {id:"g22", source:"field22", top:10, left:1058, width:252, height:268, cardCount:2},
+  {id:"g23", source:"field23", top:10, left:1323, width:252, height:268, cardCount:2},
+  {id:"g24", source:"field24", top:291, left:0, width:252, height:268, cardCount:2},
+  {id:"g25", source:"field25", top:291, left:264, width:252, height:268, cardCount:2},
+  {id:"g26", source:"field26", top:291, left:529, width:252, height:268, cardCount:2},
+  {id:"g27", source:"field27", top:291, left:793, width:252, height:268, cardCount:2},
+  {id:"g28", source:"field28", top:291, left:1058, width:252, height:268, cardCount:2},
+  {id:"g29", source:"field29", top:291, left:1323, width:252, height:268, cardCount:2},
+  {id:"g30", source:"field30", top:572, left:0, width:252, height:268, cardCount:2},
+  {id:"g31", source:"field31", top:572, left:264, width:252, height:268, cardCount:2},
+  {id:"g32", source:"field32", top:572, left:529, width:252, height:268, cardCount:2},
+  {id:"g33", source:"field33", top:572, left:793, width:252, height:268, cardCount:2},
+  {id:"g34", source:"field34", top:572, left:1058, width:252, height:268, cardCount:2},
+  {id:"g35", source:"field35", top:572, left:1323, width:252, height:268, cardCount:2},
+  {id:"g36", source:"field36", top:854, left:0, width:252, height:268, cardCount:2},
+  {id:"g37", source:"field37", top:854, left:264, width:252, height:268, cardCount:2},
+  {id:"g38", source:"field38", top:854, left:529, width:252, height:268, cardCount:2},
+  {id:"g39", source:"field39", top:854, left:793, width:384, height:268, cardCount:3},
+  {id:"g40", source:null, top:854, left:1191, width:384, height:268, cardCount:1},
+];
 
-  function createFormFields() {
-    fieldsConfig.forEach(field => {
-      const textarea = document.createElement('textarea');
-      textarea.id = field.id;
-      textarea.className = 'form-field';
-      textarea.placeholder = field.placeholder;
-      textarea.style.top = field.top + 'px';
-      textarea.style.left = field.left + 'px';
-      textarea.style.width = field.width + 'px';
-      textarea.style.height = field.height + 'px';
-      textarea.rows = field.rows;
-      textarea.value = localStorage.getItem(field.id) || '';
-      textarea.autocomplete = "off";
+const formContainer = document.getElementById("formContainer");
+const editorModal = document.getElementById("editorModal");
+const editorTextarea = document.getElementById("editorTextarea");
+const exportBtn = document.getElementById("exportBtn");
+const importBtn = document.getElementById("importBtn");
+const importFile = document.getElementById("importFile");
+const resetBtn = document.getElementById("resetBtn");
+const filenameInput = document.getElementById("filename");
 
-      textarea.addEventListener('input', () => {
-        localStorage.setItem(field.id, textarea.value);
-      });
-
-      formContainer.appendChild(textarea);
-    });
+if (filenameInput) {
+  // 読み込み時にLocalStorageから復元
+  const savedFilename = localStorage.getItem("filename");
+  if (savedFilename !== null) {
+    filenameInput.value = savedFilename;
   }
-
-  createFormFields();
-
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    if (!confirm('すべての入力を消去しますか？')) return;
-
-    fieldsConfig.forEach(field => {
-    const textarea = document.getElementById(field.id);
-    textarea.value = '';
-    localStorage.removeItem(field.id);
+  
+  filenameInput.addEventListener("input", () => {
+    localStorage.setItem("filename", filenameInput.value);
   });
+}
 
-    alert('消去しました');
-　});
+function genId(){
+  return "c-" + Date.now() + "-" + Math.random();
+}
 
-  document.getElementById('importBtn').addEventListener('click', () => {
-    document.getElementById('importFile').click();
+function dl(text, ext){
+  const blob = new Blob([text], {type:"text/plain"});
+  const a = document.createElement("a");
+  const name = filenameInput?.value || "名称未設定";
+  a.href = URL.createObjectURL(blob);
+  a.download = name + ext;
+  a.click();
+}
+
+function saveBoardState() {
+  const groupsData = [];
+  document.querySelectorAll(".card-group").forEach(group => {
+    const clone = group.querySelector(".clone-box");
+    const row = group.querySelector(".card-row");
+    
+    const g = {
+      id: group.dataset.groupId,
+      top: group.style.top,
+      left: group.style.left,
+      width: group.style.width,
+      height: group.style.height,
+      source: clone?.dataset.source || null,
+      cards: []
+    };
+
+    row.querySelectorAll(".card-wrap").forEach(wrap => {
+      const card = wrap.querySelector(".card");
+      g.cards.push({ id: wrap.dataset.id, value: card.value });
+    });
+    groupsData.push(g);
   });
+  localStorage.setItem("boardState", JSON.stringify(groupsData));
+}
 
-  document.getElementById('importFile').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const name = file.name.replace(/\.[^/.]+$/, "");
-    document.getElementById("filename").value = name;
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      try {
-        const json = JSON.parse(evt.target.result);
-        fieldsConfig.forEach(field => {
-          if (json[field.id] !== undefined) {
-            const textarea = document.getElementById(field.id);
-            textarea.value = json[field.id];
-            localStorage.setItem(field.id, json[field.id]);
-          }
-        });
-        alert('読み込みに成功しました');
-      } catch (err) {
-        alert('読み込みに失敗しました');
+fieldsConfig.forEach(f => {
+  const t = document.createElement("textarea");
+  t.id = f.id;
+  t.className = "form-field";
+  t.style.top = f.top + "px";
+  t.style.left = f.left + "px";
+  t.style.width = f.width + "px";
+  t.style.height = f.height + "px";
+
+  t.value = (localStorage.getItem(f.id) || "").trim();
+  if(f.placeholder) t.placeholder = f.placeholder;
+
+  t.oninput = () => {
+    localStorage.setItem(f.id, t.value);
+    document.querySelectorAll(`[data-source="${f.id}"]`).forEach(c => {
+      c.value = t.value;
+    });
+  };
+  formContainer.appendChild(t);
+});
+
+let current = null;
+let dragged = null;
+
+function openEditor(el){
+  current = el;
+  editorTextarea.value = el.value;
+  editorModal.style.display = "flex";
+  setTimeout(() => editorTextarea.focus(), 0);
+}
+
+editorModal.onclick = e => {
+  if(e.target.id !== "editorTextarea"){
+    if(current) {
+      current.value = editorTextarea.value;
+      saveBoardState();
+    }
+    editorModal.style.display = "none";
+  }
+};
+
+editorTextarea.oninput = () => {
+  if(current) current.value = editorTextarea.value;
+};
+
+function createCard(row, val = "", id = null){
+  const wrap = document.createElement("div");
+  wrap.className = "card-wrap";
+  wrap.dataset.id = id || genId();
+  wrap.ondragover = e => e.preventDefault();
+
+  const card = document.createElement("textarea");
+  card.className = "card";
+  card.value = val;
+
+  card.onmousedown = e => {
+    e.preventDefault();
+    openEditor(card);
+  };
+  card.oninput = saveBoardState;
+
+  const ctr = document.createElement("div");
+  ctr.className = "card-controls";
+
+  const leftHandle = document.createElement("div");
+  const rightHandle = document.createElement("div");
+  const deleteBtn = document.createElement("button");
+
+  leftHandle.className = "drag-handle";
+  rightHandle.className = "drag-handle";
+  leftHandle.textContent = "　 　";
+  rightHandle.textContent = "　 　";
+  deleteBtn.textContent = "×";
+
+  deleteBtn.onclick = () => {
+    const currentRow = wrap.parentNode;
+    if(currentRow.querySelectorAll(".card-wrap").length <= 1) return;
+    wrap.remove();
+    saveBoardState();
+  };
+
+  leftHandle.draggable = true;
+  rightHandle.draggable = true;
+
+  const handleDragStart = e => {
+    const currentRow = wrap.parentNode;
+    if(currentRow.querySelectorAll(".card-wrap").length <= 1){
+      e.preventDefault();
+      return;
+    }
+    dragged = wrap;
+    e.dataTransfer.setData("text/plain", "");
+  };
+
+  leftHandle.ondragstart = handleDragStart;
+  rightHandle.ondragstart = handleDragStart;
+
+  const handleDrop = (e, insertBeforeEl) => {
+    e.preventDefault();
+    e.stopPropagation(); 
+    if(!dragged || dragged === wrap) return;
+
+    const sourceRow = dragged.parentNode;
+    if (sourceRow !== wrap.parentNode && sourceRow.querySelectorAll(".card-wrap").length <= 1) {
+      return; 
+    }
+
+    wrap.parentNode.insertBefore(dragged, insertBeforeEl);
+    saveBoardState();
+  };
+
+  leftHandle.ondragover = e => e.preventDefault();
+  leftHandle.ondrop = e => handleDrop(e, wrap);
+
+  rightHandle.ondragover = e => e.preventDefault();
+  rightHandle.ondrop = e => handleDrop(e, wrap.nextSibling);
+
+  ctr.append(leftHandle, deleteBtn, rightHandle);
+  wrap.append(ctr, card);
+  row.appendChild(wrap);
+}
+
+function enableDrop(row){
+  row.ondragover = e => e.preventDefault();
+  row.ondrop = e => {
+    e.preventDefault();
+    if(!dragged) return;
+
+    const sourceRow = dragged.parentNode;
+    if (sourceRow !== row && sourceRow.querySelectorAll(".card-wrap").length <= 1) {
+      return;
+    }
+
+    row.appendChild(dragged);
+    dragged = null;
+    saveBoardState();
+  };
+}
+
+function init(){
+  const lane = document.getElementById("cardLane");
+  lane.innerHTML = "";
+
+  const savedStateStr = localStorage.getItem("boardState");
+
+  if (savedStateStr) {
+    const savedGroups = JSON.parse(savedStateStr);
+    savedGroups.forEach(g => buildGroupDom(lane, g, true));
+  } else {
+    cardGroupsConfig.forEach(g => buildGroupDom(lane, g, false));
+    saveBoardState(); 
+  }
+}
+
+function buildGroupDom(lane, g, isRestore) {
+  const group = document.createElement("div");
+  group.className = "card-group";
+  if (g.id) group.dataset.groupId = g.id;
+
+  group.style.top = g.top + (isRestore ? "" : "px");
+  group.style.left = g.left + (isRestore ? "" : "px");
+  group.style.width = g.width + (isRestore ? "" : "px");
+  group.style.height = g.height + (isRestore ? "" : "px");
+
+  const row = document.createElement("div");
+  row.className = "card-row";
+  enableDrop(row);
+
+  if (g.source) {
+    const clone = document.createElement("textarea");
+    clone.className = "clone-box";
+    clone.dataset.source = g.source;
+
+    const src = document.getElementById(g.source);
+    clone.value = src?.value || "";
+
+    clone.oninput = () => {
+      if (src) {
+        src.value = clone.value;
+        localStorage.setItem(src.id, clone.value);
       }
     };
-    reader.readAsText(file);
-  });
+    group.appendChild(clone);
+  } else {
+    const fixedHeader = document.createElement("div");
+    fixedHeader.className = "fixed-header";
+    fixedHeader.textContent = "サブプロット（未整理）"; 
+    group.appendChild(fixedHeader);
+  }
 
-  document.getElementById('exportBtn').addEventListener('click', () => {
-    const data = {};
-    fieldsConfig.forEach(field => {
-      const val = document.getElementById(field.id).value;
-      data[field.id] = val;
+  if (isRestore) {
+    (g.cards || []).forEach(c => createCard(row, c.value || "", c.id || null));
+  } else {
+    const cloneVal = g.source ? document.getElementById(g.source)?.value || "" : "";
+    for (let i = 0; i < g.cardCount; i++) {
+      createCard(row, cloneVal);
+    }
+  }
+
+  group.appendChild(row);
+  lane.appendChild(group);
+}
+
+function addCard(){
+  const groups = document.querySelectorAll(".card-group");
+  if(groups.length === 0) return;
+  const g = groups[groups.length - 1];
+  createCard(g.querySelector(".card-row"), "");
+  saveBoardState();
+}
+
+function exportCards(){
+  const name = filenameInput?.value || "名称未設定";
+
+  let t = `${name}トリートメント\n\n`;
+  
+  const groups = document.querySelectorAll(".card-group");
+  
+  groups.forEach(group => {
+    group.querySelectorAll(".card").forEach(c => {
+      const val = c.value.trim();
+      if(val){
+
+        t += `${val}\n\n`;
+      }
     });
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-    const a = document.createElement('a');
-    const filenameInput = document.getElementById('filename');
-    let filename = filenameInput.value.trim();
-    if (!filename) filename = '名称未設定.grg';
-    else if (!filename.toLowerCase().endsWith('.json')) filename += '.grg';
-
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(a.href);
   });
   
+  dl(t, "_トリートメント.txt");
+}
+
 function exportText(){
+  const f = [];
+  for (let i = 0; i <= 39; i++) {
+    const elId = (i === 0) ? "filename" : `field${i}`;
+    const el = document.getElementById(elId);
+    f[i] = el ? el.value : "";
+  }
 
-const f0 = document.getElementById("filename").value;
-const f1 = document.getElementById("field1").value;
-const f2 = document.getElementById("field2").value;
-const f3 = document.getElementById("field3").value;
-const f4 = document.getElementById("field4").value;
-const f5 = document.getElementById("field5").value;
-const f6 = document.getElementById("field6").value;
-const f7 = document.getElementById("field7").value;
-const f8 = document.getElementById("field8").value;
-const f9 = document.getElementById("field9").value;
-const f10 = document.getElementById("field10").value;
-const f11 = document.getElementById("field11").value;
-const f12 = document.getElementById("field12").value;
-const f13 = document.getElementById("field13").value;
-const f14 = document.getElementById("field14").value;
-const f15 = document.getElementById("field15").value;
-const f16 = document.getElementById("field16").value;
-const f17 = document.getElementById("field17").value;
-const f18 = document.getElementById("field18").value;
-const f19 = document.getElementById("field19").value;
-const f20 = document.getElementById("field20").value;
-const f21 = document.getElementById("field21").value;
-const f22 = document.getElementById("field22").value;
-const f23 = document.getElementById("field23").value;
-const f24 = document.getElementById("field24").value;
-const f25 = document.getElementById("field25").value;
-const f26 = document.getElementById("field26").value;
-const f27 = document.getElementById("field27").value;
-const f28 = document.getElementById("field28").value;
-const f29 = document.getElementById("field29").value;
-const f30 = document.getElementById("field30").value;
-const f31 = document.getElementById("field31").value;
-const f32 = document.getElementById("field32").value;
-const f33 = document.getElementById("field33").value;
-const f34 = document.getElementById("field34").value;
-const f35 = document.getElementById("field35").value;
-const f36 = document.getElementById("field36").value;
-const f37 = document.getElementById("field37").value;
-const f38 = document.getElementById("field38").value;
-const f39 = document.getElementById("field39").value;
-
-const text = `
-タイトル『${f0}』
+  const text = `
+タイトル『${f[0]}』
 
 　【テーマ】
-${f12}
+${f[12]}
 
 　【ログライン】
-${f11}が、${f12}によって、${f13}。
+${f[11]}が、${f[12]}によって、${f[13]}。
 
 　【キャラクター】
 
 
 　【あらすじ】
-［序章：${f11}］（全体×0.136）
-${f18}${f19}${f20}
+［序章：${f[11]}］（全体×0.136）
+${f[18]}${f[19]}${f[20]}
 
-［一章：${f14}］（全体×0.136）
-${f21}${f22}${f23}
-▶きっかけ：${f1}。
+［一章：${f[14]}］（全体×0.136）
+${f[21]}${f[22]}${f[23]}
+▶きっかけ：${f[1]}。
 
-［二章：${f15}］（全体×0.273）
-${f24}${f25}${f26}
-${f27}${f28}${f29}
-▶出会い：${f3}が、${f4}。
-▶わかったこと：${f5}。
+［二章：${f[15]}］（全体×0.273）
+${f[24]}${f[25]}${f[26]}
+${f[27]}${f[28]}${f[29]}
+▶出会い：${f[3]}が、${f[4]}。
+▶わかったこと：${f[5]}。
 
-［三章：${f16}］（全体×0.273）
-${f30}${f31}${f32}
-${f33}${f34}${f35}
-▶危機を脱する：${f9}が、${f10}。
+［三章：${f[16]}］（全体×0.273）
+${f[30]}${f[31]}${f[32]}
+${f[33]}${f[34]}${f[35]}
+▶危機を脱する：${f[9]}が、${f[10]}。
 
-［四章：${f17}］（全体×0.136）
-${f36}${f37}${f38}
-▶クライマックス：${f7}が、${f8}。
-▶フィナーレ：${f6}が、${f2}。
+［四章：${f[17]}］（全体×0.136）
+${f[36]}${f[37]}${f[38]}
+▶クライマックス：${f[7]}が、${f[8]}。
+▶フィナーレ：${f[6]}が、${f[2]}。
 
-［終章：${f13}］（全体×0.045）
-${f39}
+［終章：${f[13]}］（全体×0.045）
+${f[39]}
 
 　（了）
 `;
 
-const blob = new Blob([text], {type:"text/plain"});
-const a = document.createElement("a");
+  const blob = new Blob([text], {type:"text/plain"});
+  const a = document.createElement("a");
+  const fileName = f[0] || "名称未設定";
 
-const fileName = document.getElementById("filename")?.value || "名称未設定";
-
-a.href = URL.createObjectURL(blob);
-a.download = fileName + ".txt";
-a.click();
-
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName + "_シノプシス.txt";
+  a.click();
 }
 
+exportBtn.onclick = () => {
+  const data = { fields: {}, groups: [] };
+  fieldsConfig.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (el) data.fields[f.id] = el.value;
+  });
+
+  document.querySelectorAll(".card-group").forEach(group => {
+    const clone = group.querySelector(".clone-box");
+    const row = group.querySelector(".card-row");
+    const g = {
+      id: group.dataset.groupId,
+      top: group.style.top,
+      left: group.style.left,
+      width: group.style.width,
+      height: group.style.height,
+      source: clone?.dataset.source || null,
+      cards: []
+    };
+    row.querySelectorAll(".card-wrap").forEach(wrap => {
+      const card = wrap.querySelector(".card");
+      g.cards.push({ id: wrap.dataset.id, value: card.value });
+    });
+    data.groups.push(g);
+  });
+  dl(JSON.stringify(data, null, 2), ".grg");
+};
+
+importBtn.onclick = () => importFile.click();
+
+importFile.onchange = e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  
+  if (filenameInput) {
+    const baseName = f.name.replace(/\.[^/.]+$/, "");
+    filenameInput.value = baseName;
+    localStorage.setItem("filename", baseName);
+  }
+
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      
+      // fields復元
+      Object.entries(data.fields || {}).forEach(([k, v]) => {
+        const el = document.getElementById(k);
+        if (el) {
+          el.value = v;
+          localStorage.setItem(k, v);
+        }
+      });
+      
+      const lane = document.getElementById("cardLane");
+      lane.innerHTML = "";
+      
+      (data.groups || []).forEach(g => buildGroupDom(lane, g, true));
+      saveBoardState(); 
+      
+    } catch (err) {
+      console.error(err);
+      alert("読み込みエラー");
+    }
+  };
+  r.readAsText(f);
+};
+
+resetBtn.onclick = () => {
+  if(!confirm("消去しますか？")) return;
+  
+  fieldsConfig.forEach(f => {
+    localStorage.removeItem(f.id);
+    const el = document.getElementById(f.id);
+    if(el) el.value = "";
+  });
+  localStorage.removeItem("boardState");
+  localStorage.removeItem("filename");
+  
+  init();
+};
+
+window.onload = init;
+
 </script>
-
-<!-- Copyright 2020-2025 kagakenzo All rights reserved. -->
-
 </body>
 </html>
