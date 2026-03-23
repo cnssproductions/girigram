@@ -192,7 +192,7 @@ if(input !== password){
 </div>
 
 <div class="controls">
-  <button id="resetBtn">消去</button>
+  <button id="resetBtn">リセット</button>
   <input type="file" id="importFile" hidden>
   <button id="importBtn">読み込み</button>
   <input id="filename" placeholder="名称未設定">
@@ -418,8 +418,11 @@ function createCard(row, val = "", id = null){
   deleteBtn.onclick = () => {
     const currentRow = wrap.parentNode;
     if(currentRow.querySelectorAll(".card-wrap").length <= 1) return;
+    
+    if(!confirm("カードを消去しますか？")) return;
+    
     wrap.remove();
-    saveBoardState();
+    saveBoardState(); // 削除後に保存
   };
 
   leftHandle.draggable = true;
@@ -700,7 +703,7 @@ importFile.onchange = e => {
 };
 
 resetBtn.onclick = () => {
-  if(!confirm("消去しますか？")) return;
+  if(!confirm("リセットしますか？")) return;
   
   fieldsConfig.forEach(f => {
     localStorage.removeItem(f.id);
